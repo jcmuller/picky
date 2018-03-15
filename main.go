@@ -2,13 +2,9 @@ package main
 
 import (
 	"os"
-)
 
-func handle(err error) {
-	if err != nil {
-		panic(err)
-	}
-}
+	"github.com/jcmuller/choosy/chooser"
+)
 
 func main() {
 	if len(os.Args) != 2 {

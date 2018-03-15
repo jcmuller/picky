@@ -2,14 +2,18 @@ package chooser
 
 import (
 	"fmt"
+	"os"
 	"os/exec"
+	"strings"
 
 	"github.com/jcmuller/choosy/config"
+	"github.com/jcmuller/choosy/rule"
 )
 
 // Chooser thingie
 type Chooser struct {
-	arg string
+	arg    string
+	config *config.Config
 }
 
 func handle(err error) {
@@ -20,12 +24,18 @@ func handle(err error) {
 
 // New instance of chooser
 func New(arg string) *Chooser {
-	return &Chooser{arg: arg}
+	config, err := config.New()
+
+	handle(err)
+
+	return &Chooser{
+		arg:    arg,
+		config: config,
+	}
 }
 
-func (c *Chooser) getRule() *config.Rule {
-	config, err := config.New()
-	handle(err)
+func (c *Chooser) getRule() *rule.Rule {
+	config := c.config
 
 	for _, r := range config.Rules {
 		if r.Match(c.arg) {
@@ -36,10 +46,26 @@ func (c *Chooser) getRule() *config.Rule {
 	return config.Default
 }
 
+func log(command string) {
+	f, err := os.OpenFile("/tmp/input", os.O_CREATE|os.O_APPEND|os.O_WRONLY, 0644)
+	handle(err)
+	defer f.Close()
+
+	_, err = f.WriteString(fmt.Sprintf("%q\n", command))
+	handle(err)
+}
+
 // Call runs this thing
 func (c *Chooser) Call() {
 	rule := c.getRule()
 
-	err := exec.Command("chromium-browser", fmt.Sprintf("--profile-directory=%s", rule.Profile), c.arg).Run()
+	command := []string{"chromium-browser", fmt.Sprintf("--profile-directory=%s", rule.Profile), c.arg}
+
+	if c.config.Debug {
+		log(strings.Join(command, " "))
+		return
+	}
+
+	err := exec.Command(command[0], command[1:]...).Run()
 	handle(err)
 }

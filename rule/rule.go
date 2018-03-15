@@ -8,7 +8,7 @@ import (
 
 // Rule defines what to do for a URL
 type Rule struct {
-	uri     string `yaml:"uri"`
+	URI     string `yaml:"uri"`
 	Profile string `yaml:"profile"`
 }
 
@@ -26,7 +26,7 @@ func (r *Rule) String() string {
 
 // Match matches
 func (r *Rule) Match(host string) bool {
-	match, err := regexp.MatchString(r.uri, host)
+	match, err := regexp.MatchString(r.URI, host)
 
 	if err != nil {
 		return false

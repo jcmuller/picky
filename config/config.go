@@ -12,6 +12,7 @@ import (
 type Config struct {
 	Default *rule.Rule   `yaml:"default"`
 	Rules   []*rule.Rule `yaml:"rules"`
+	Debug   bool         `yaml:"debug"`
 }
 
 func handle(err error) {
