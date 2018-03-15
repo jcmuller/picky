@@ -34,7 +34,8 @@ func New() (*Config, error) {
 
 	if os.IsNotExist(err) {
 		fmt.Println("File doesn't exist")
-		exec.Command("chromium-browser", fmt.Sprintf("http://juancmuller.com/simplemessage/?heading=Error&content=You need to create %s/.config/choosy/config", os.Getenv("HOME"))).Run()
+		errorString := "http://juancmuller.com/simplemessage/choosyerror.html?home=%s"
+		exec.Command("chromium-browser", fmt.Sprintf(errorString, os.Getenv("HOME"))).Run()
 		os.Exit(0)
 	}
 
