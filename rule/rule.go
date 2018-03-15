@@ -10,6 +10,7 @@ import (
 type Rule struct {
 	URI     string `yaml:"uri"`
 	Profile string `yaml:"profile"`
+	Browser string `yaml:"browser"`
 }
 
 func handle(err error) {

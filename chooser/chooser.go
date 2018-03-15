@@ -59,7 +59,8 @@ func log(command string) {
 func (c *Chooser) Call() {
 	rule := c.getRule()
 
-	command := []string{"chromium-browser", fmt.Sprintf("--profile-directory=%s", rule.Profile), c.arg}
+	b := c.config.Browsers[rule.Browser]
+	command := b.GetCommand(rule, c.arg)
 
 	if c.config.Debug {
 		log(strings.Join(command, " "))

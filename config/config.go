@@ -6,6 +6,7 @@ import (
 	"os"
 	"os/exec"
 
+	"github.com/jcmuller/choosy/browser"
 	"github.com/jcmuller/choosy/rule"
 
 	yaml "gopkg.in/yaml.v2"
@@ -13,9 +14,10 @@ import (
 
 // Config is a struct that holds configuration
 type Config struct {
-	Default *rule.Rule   `yaml:"default"`
-	Rules   []*rule.Rule `yaml:"rules"`
-	Debug   bool         `yaml:"debug"`
+	Default  *rule.Rule                  `yaml:"default"`
+	Browsers map[string]*browser.Browser `yaml:"browsers"`
+	Rules    []*rule.Rule                `yaml:"rules"`
+	Debug    bool                        `yaml:"debug"`
 }
 
 func handle(err error) {
