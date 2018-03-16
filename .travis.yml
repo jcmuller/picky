@@ -14,7 +14,7 @@ before_script:
   - golint ./...
 
 script:
-  - go test -v ./...
+  - ./test.sh
 
 after_success:
-  - bash <(curl -s https://codecov.io/bash) -t uuid-repo-token
+  - bash <(curl -s https://codecov.io/bash)
