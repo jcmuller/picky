@@ -1,6 +1,7 @@
 # Picky
 
 [![GoDoc](https://godoc.org/github.com/jcmuller/picky?status.svg)](https://godoc.org/github.com/jcmuller/picky)
+[![Go Report Card](https://goreportcard.com/badge/github.com/jcmuller/picky)](https://goreportcard.com/report/github.com/jcmuller/picky)
 
 This program lets you open URIs using different browsers (or profiles) following a set of rules.
 
