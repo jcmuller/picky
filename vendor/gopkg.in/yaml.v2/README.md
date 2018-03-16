@@ -1,3 +1,18 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [YAML support for the Go language](#yaml-support-for-the-go-language)
+  - [Introduction](#introduction)
+  - [Compatibility](#compatibility)
+  - [Installation and usage](#installation-and-usage)
+  - [API documentation](#api-documentation)
+  - [API stability](#api-stability)
+  - [License](#license)
+  - [Example](#example)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 # YAML support for the Go language
 
 Introduction

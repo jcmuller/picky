@@ -2,9 +2,14 @@
 
 This program lets you open URIs using different browsers (or profiles) following a set of rules.
 
-It is driven by a configuration file located at `$HOME/.config/picky/config`.
+**Table of Contents**
+- [Example config](#example-config)
+- [Installation](#installation)
+- [Usage](#usage)
 
 ## Example config
+Picky is driven by a configuration file located at `$HOME/.config/picky/config`.
+
 ```yaml
 ---
 default:
@@ -24,4 +29,14 @@ rules:
   - uri: http://yahoo.com/bar
     profile: Profile 2
     browser: chromium
+```
+
+## Installation
+```bash
+$ go get -u github.com/jcmuller/picky
+```
+
+## Usage
+```bash
+$ picky SOME_URI
 ```
