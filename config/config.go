@@ -1,6 +1,8 @@
+// Package config has configuration responsibilities
 package config
 
 import (
+	"errors"
 	"fmt"
 	"io/ioutil"
 	"os"
@@ -14,10 +16,10 @@ import (
 
 // Config is a struct that holds configuration
 type Config struct {
-	Default  *rule.Rule                  `yaml:"default"`
-	Browsers map[string]*browser.Browser `yaml:"browsers"`
-	Rules    []*rule.Rule                `yaml:"rules"`
-	Debug    bool                        `yaml:"debug"`
+	Browsers    map[string]*browser.Browser `yaml:"browsers"`
+	Debug       bool                        `yaml:"debug"`
+	DefaultRule *rule.Rule                  `yaml:"default"`
+	Rules       []*rule.Rule                `yaml:"rules"`
 }
 
 func handle(err error) {
@@ -26,23 +28,57 @@ func handle(err error) {
 	}
 }
 
-// New instance of Config
-func New() (*Config, error) {
-	c := &Config{}
+var configFileTemplate = "%s/.config/choosy/config"
 
-	config, err := ioutil.ReadFile(fmt.Sprintf("%s/.config/choosy/config", os.Getenv("HOME")))
+// FilePath returns the config file path
+func FilePath() (file string, err error) {
+	file = fmt.Sprintf(configFileTemplate, os.Getenv("HOME"))
+	return
+}
 
+// FileContents reads the config file
+func FileContents(path string) (configFile []byte, err error) {
+	configFile, err = ioutil.ReadFile(path)
 	if os.IsNotExist(err) {
-		fmt.Println("File doesn't exist")
 		errorString := "http://juancmuller.com/simplemessage/choosyerror.html?home=%s"
-		exec.Command("chromium-browser", fmt.Sprintf(errorString, os.Getenv("HOME"))).Run()
-		os.Exit(0)
+		err = exec.Command("chromium-browser", fmt.Sprintf(errorString, os.Getenv("HOME"))).Run()
+		handle(err)
+
+		return nil, errors.New("config not found")
 	}
 
-	err = yaml.Unmarshal(config, c)
+	handle(err)
+
+	return
+}
+
+// New instance of Config
+func New(configYaml []byte) (*Config, error) {
+	c := &Config{}
+	err := yaml.Unmarshal(configYaml, c)
 	if err != nil {
 		return nil, err
 	}
 
 	return c, nil
+}
+
+// GetDefaultRule returns the default rule
+func (c *Config) GetDefaultRule() *rule.Rule {
+	return c.DefaultRule
+}
+
+// GetBrowsers returns the browsers
+func (c *Config) GetBrowsers() map[string]*browser.Browser {
+	return c.Browsers
+}
+
+// GetRules returns the rules
+func (c *Config) GetRules() []*rule.Rule {
+	return c.Rules
+}
+
+// GetDebug returns the debug flag
+func (c *Config) GetDebug() bool {
+	return c.Debug
 }

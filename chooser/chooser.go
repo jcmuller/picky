@@ -1,19 +1,26 @@
+// Package chooser chooses what browser to use depending on a rule and URI
 package chooser
 
 import (
 	"fmt"
 	"os"
 	"os/exec"
-	"strings"
 
-	"github.com/jcmuller/choosy/config"
+	"github.com/jcmuller/choosy/browser"
 	"github.com/jcmuller/choosy/rule"
 )
+
+type cfg interface {
+	GetBrowsers() map[string]*browser.Browser
+	GetRules() []*rule.Rule
+	GetDefaultRule() *rule.Rule
+	GetDebug() bool
+}
 
 // Chooser thingie
 type Chooser struct {
 	arg    string
-	config *config.Config
+	config cfg
 }
 
 func handle(err error) {
@@ -23,27 +30,23 @@ func handle(err error) {
 }
 
 // New instance of chooser
-func New(arg string) *Chooser {
-	config, err := config.New()
-
-	handle(err)
-
+func New(config cfg, arg string) *Chooser {
 	return &Chooser{
 		arg:    arg,
 		config: config,
 	}
 }
 
-func (c *Chooser) getRule() *rule.Rule {
+func (c *Chooser) GetRule() *rule.Rule {
 	config := c.config
 
-	for _, r := range config.Rules {
+	for _, r := range config.GetRules() {
 		if r.Match(c.arg) {
 			return r
 		}
 	}
 
-	return config.Default
+	return config.GetDefaultRule()
 }
 
 func log(command string) {
@@ -57,13 +60,13 @@ func log(command string) {
 
 // Call runs this thing
 func (c *Chooser) Call() {
-	rule := c.getRule()
+	rule := c.GetRule()
 
-	b := c.config.Browsers[rule.Browser]
+	b := c.config.GetBrowsers()[rule.GetBrowser()]
 	command := b.GetCommand(rule, c.arg)
 
-	if c.config.Debug {
-		log(strings.Join(command, " "))
+	if c.config.GetDebug() {
+		log(fmt.Sprintf("%v", command))
 		return
 	}
 

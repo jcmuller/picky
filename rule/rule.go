@@ -1,28 +1,25 @@
+// Package rule wraps heuristics to choose browsers
 package rule
 
 import (
 	"regexp"
-
-	yaml "gopkg.in/yaml.v2"
 )
 
 // Rule defines what to do for a URL
 type Rule struct {
-	URI     string `yaml:"uri"`
-	Profile string `yaml:"profile"`
 	Browser string `yaml:"browser"`
+	Profile string `yaml:"profile"`
+	URI     string `yaml:"uri"`
 }
 
-func handle(err error) {
-	if err != nil {
-		panic(err)
-	}
+// GetProfile returns the profile
+func (r *Rule) GetProfile() string {
+	return r.Profile
 }
 
-func (r *Rule) String() string {
-	b, err := yaml.Marshal(r)
-	handle(err)
-	return string(b)
+// GetBrowser returns the browser key for the rule
+func (r *Rule) GetBrowser() string {
+	return r.Browser
 }
 
 // Match matches
