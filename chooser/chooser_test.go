@@ -3,9 +3,9 @@ package chooser_test
 import (
 	"testing"
 
-	"github.com/jcmuller/choosy/browser"
-	"github.com/jcmuller/choosy/chooser"
-	"github.com/jcmuller/choosy/rule"
+	"github.com/jcmuller/picky/browser"
+	"github.com/jcmuller/picky/chooser"
+	"github.com/jcmuller/picky/rule"
 )
 
 type mockConfig struct{}

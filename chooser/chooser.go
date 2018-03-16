@@ -6,8 +6,8 @@ import (
 	"os"
 	"os/exec"
 
-	"github.com/jcmuller/choosy/browser"
-	"github.com/jcmuller/choosy/rule"
+	"github.com/jcmuller/picky/browser"
+	"github.com/jcmuller/picky/rule"
 )
 
 type cfg interface {

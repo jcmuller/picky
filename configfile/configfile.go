@@ -8,7 +8,7 @@ import (
 	"os/exec"
 )
 
-var configFileTemplate = "%s/.config/choosy/config"
+var configFileTemplate = "%s/.config/picky/config"
 
 // FilePath returns the config file path
 func FilePath(home string) (file string, err error) {
@@ -20,7 +20,7 @@ type fn func()
 
 // OnFileError handles error
 func OnFileError() {
-	errorString := "http://juancmuller.com/simplemessage/choosyerror.html?home=%s"
+	errorString := "http://juancmuller.com/simplemessage/pickyerror.html?home=%s"
 	err := exec.Command("chromium-browser", fmt.Sprintf(errorString, os.Getenv("HOME"))).Run()
 	if err != nil {
 		panic(err)

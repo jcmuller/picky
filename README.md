@@ -1,8 +1,8 @@
-# Choosy
+# Picky
 
 This program lets you open URIs using different browsers (or profiles) following a set of rules.
 
-It is driven by a configuration file located at `$HOME/.config/choosy/config`.
+It is driven by a configuration file located at `$HOME/.config/picky/config`.
 
 ## Example config
 ```yaml

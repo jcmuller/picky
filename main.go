@@ -6,9 +6,9 @@ import (
 	"os"
 	"strings"
 
-	"github.com/jcmuller/choosy/chooser"
-	"github.com/jcmuller/choosy/config"
-	"github.com/jcmuller/choosy/configfile"
+	"github.com/jcmuller/picky/chooser"
+	"github.com/jcmuller/picky/config"
+	"github.com/jcmuller/picky/configfile"
 )
 
 func main() {

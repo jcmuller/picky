@@ -4,7 +4,7 @@ import (
 	"regexp"
 	"testing"
 
-	"github.com/jcmuller/choosy/config"
+	"github.com/jcmuller/picky/config"
 )
 
 var sourceString = `---

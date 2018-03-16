@@ -3,11 +3,11 @@ package configfile_test
 import (
 	"testing"
 
-	"github.com/jcmuller/choosy/configfile"
+	"github.com/jcmuller/picky/configfile"
 )
 
 func TestFilePath(t *testing.T) {
-	expected := "/home/foobar/.config/choosy/config"
+	expected := "/home/foobar/.config/picky/config"
 
 	actual, err := configfile.FilePath("/home/foobar")
 

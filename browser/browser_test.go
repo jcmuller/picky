@@ -3,7 +3,7 @@ package browser_test
 import (
 	"testing"
 
-	"github.com/jcmuller/choosy/browser"
+	"github.com/jcmuller/picky/browser"
 )
 
 type mockRule struct {

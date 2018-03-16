@@ -2,8 +2,8 @@
 package config
 
 import (
-	"github.com/jcmuller/choosy/browser"
-	"github.com/jcmuller/choosy/rule"
+	"github.com/jcmuller/picky/browser"
+	"github.com/jcmuller/picky/rule"
 
 	yaml "gopkg.in/yaml.v2"
 )

@@ -3,7 +3,7 @@ package rule_test
 import (
 	"testing"
 
-	"github.com/jcmuller/choosy/rule"
+	"github.com/jcmuller/picky/rule"
 )
 
 var matchTests = []struct {
