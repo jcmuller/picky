@@ -1,5 +1,7 @@
 # Picky
 
+[![GoDoc](https://godoc.org/github.com/jcmuller/picky?status.svg)](https://godoc.org/github.com/jcmuller/picky)
+
 This program lets you open URIs using different browsers (or profiles) following a set of rules.
 
 **Table of Contents**
