@@ -16,7 +16,6 @@ default: &default
 rules:
 	- <<: *default
 		args: First Profile
-		args:
 		uris:
 			- hotmail.com
 			- gmail.com
