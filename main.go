@@ -8,6 +8,7 @@ import (
 
 	"github.com/jcmuller/choosy/chooser"
 	"github.com/jcmuller/choosy/config"
+	"github.com/jcmuller/choosy/configfile"
 )
 
 func main() {
@@ -17,10 +18,10 @@ func main() {
 
 	arg := strings.Join(os.Args[1:], " ")
 
-	configFilePath, err := config.FilePath()
+	configFilePath, err := configfile.FilePath(os.Getenv("HOME"))
 	handle(err)
 
-	configYaml, err := config.FileContents(configFilePath)
+	configYaml, err := configfile.FileContents(configFilePath, configfile.OnFileError)
 
 	if err != nil {
 		fmt.Println(fmt.Errorf("%s", err))

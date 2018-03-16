@@ -2,12 +2,6 @@
 package config
 
 import (
-	"errors"
-	"fmt"
-	"io/ioutil"
-	"os"
-	"os/exec"
-
 	"github.com/jcmuller/choosy/browser"
 	"github.com/jcmuller/choosy/rule"
 
@@ -20,36 +14,6 @@ type Config struct {
 	Debug       bool                        `yaml:"debug"`
 	DefaultRule *rule.Rule                  `yaml:"default"`
 	Rules       []*rule.Rule                `yaml:"rules"`
-}
-
-func handle(err error) {
-	if err != nil {
-		panic(err)
-	}
-}
-
-var configFileTemplate = "%s/.config/choosy/config"
-
-// FilePath returns the config file path
-func FilePath() (file string, err error) {
-	file = fmt.Sprintf(configFileTemplate, os.Getenv("HOME"))
-	return
-}
-
-// FileContents reads the config file
-func FileContents(path string) (configFile []byte, err error) {
-	configFile, err = ioutil.ReadFile(path)
-	if os.IsNotExist(err) {
-		errorString := "http://juancmuller.com/simplemessage/choosyerror.html?home=%s"
-		err = exec.Command("chromium-browser", fmt.Sprintf(errorString, os.Getenv("HOME"))).Run()
-		handle(err)
-
-		return nil, errors.New("config not found")
-	}
-
-	handle(err)
-
-	return
 }
 
 // New instance of Config
