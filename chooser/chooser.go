@@ -37,6 +37,7 @@ func New(config cfg, arg string) *Chooser {
 	}
 }
 
+// GetRule returns the rule that matches the argument passed in
 func (c *Chooser) GetRule() *rule.Rule {
 	config := c.config
 
