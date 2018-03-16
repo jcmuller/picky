@@ -1,5 +1,6 @@
 # Picky
 
+[![Build Status](https://travis-ci.org/jcmuller/picky.svg?branch=master)](https://travis-ci.org/jcmuller/picky)
 [![GoDoc](https://godoc.org/github.com/jcmuller/picky?status.svg)](https://godoc.org/github.com/jcmuller/picky)
 [![Go Report Card](https://goreportcard.com/badge/github.com/jcmuller/picky)](https://goreportcard.com/report/github.com/jcmuller/picky)
 
