@@ -4,6 +4,7 @@
 [![GoDoc](https://godoc.org/github.com/jcmuller/picky?status.svg)](https://godoc.org/github.com/jcmuller/picky)
 [![Go Report Card](https://goreportcard.com/badge/github.com/jcmuller/picky)](https://goreportcard.com/report/github.com/jcmuller/picky)
 [![codecov](https://codecov.io/gh/jcmuller/picky/branch/master/graph/badge.svg)](https://codecov.io/gh/jcmuller/picky)
+[![Maintainability](https://api.codeclimate.com/v1/badges/b3da22424ebf6d92f378/maintainability)](https://codeclimate.com/github/jcmuller/picky/maintainability)
 
 This program lets you open URIs using different browsers (or profiles) following a set of rules.
 
