@@ -2,7 +2,6 @@
 package config
 
 import (
-	"github.com/jcmuller/picky/browser"
 	"github.com/jcmuller/picky/rule"
 
 	yaml "gopkg.in/yaml.v2"
@@ -10,16 +9,16 @@ import (
 
 // Config is a struct that holds configuration
 type Config struct {
-	Browsers    map[string]*browser.Browser `yaml:"browsers"`
-	Debug       bool                        `yaml:"debug"`
-	DefaultRule *rule.Rule                  `yaml:"default"`
-	Rules       []*rule.Rule                `yaml:"rules"`
+	Debug       bool         `yaml:"debug"`
+	DefaultRule *rule.Rule   `yaml:"default"`
+	Rules       []*rule.Rule `yaml:"rules"`
 }
 
 // New instance of Config
 func New(configYaml []byte) (*Config, error) {
 	c := &Config{}
 	err := yaml.Unmarshal(configYaml, c)
+
 	if err != nil {
 		return nil, err
 	}
@@ -30,11 +29,6 @@ func New(configYaml []byte) (*Config, error) {
 // GetDefaultRule returns the default rule
 func (c *Config) GetDefaultRule() *rule.Rule {
 	return c.DefaultRule
-}
-
-// GetBrowsers returns the browsers
-func (c *Config) GetBrowsers() map[string]*browser.Browser {
-	return c.Browsers
 }
 
 // GetRules returns the rules

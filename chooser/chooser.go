@@ -6,12 +6,10 @@ import (
 	"os"
 	"os/exec"
 
-	"github.com/jcmuller/picky/browser"
 	"github.com/jcmuller/picky/rule"
 )
 
 type cfg interface {
-	GetBrowsers() map[string]*browser.Browser
 	GetRules() []*rule.Rule
 	GetDefaultRule() *rule.Rule
 	GetDebug() bool
@@ -62,9 +60,7 @@ func log(command string) {
 // Call runs this thing
 func (c *Chooser) Call() {
 	rule := c.GetRule()
-
-	b := c.config.GetBrowsers()[rule.GetBrowser()]
-	command := b.GetCommand(rule, c.arg)
+	command := rule.GetCommand(c.arg)
 
 	if c.config.GetDebug() {
 		log(fmt.Sprintf("%v", command))

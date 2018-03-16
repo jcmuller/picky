@@ -2,33 +2,36 @@
 package rule
 
 import (
+	"fmt"
 	"regexp"
 )
 
 // Rule defines what to do for a URL
 type Rule struct {
-	Browser string `yaml:"browser"`
-	Profile string `yaml:"profile"`
-	URI     string `yaml:"uri"`
+	Base    string   `yaml:"base"`
+	Profile string   `yaml:"profile"`
+	Args    string   `yaml:"args"`
+	URIs    []string `yaml:"uris"`
 }
 
-// GetProfile returns the profile
-func (r *Rule) GetProfile() string {
-	return r.Profile
-}
-
-// GetBrowser returns the browser key for the rule
-func (r *Rule) GetBrowser() string {
-	return r.Browser
+// GetCommand returns the browser key for the rule
+func (r *Rule) GetCommand(uri string) [3]string {
+	return [3]string{
+		r.Base,
+		fmt.Sprintf(r.Profile, r.Args),
+		uri,
+	}
 }
 
 // Match matches
 func (r *Rule) Match(host string) bool {
-	match, err := regexp.MatchString(r.URI, host)
+	for _, uri := range r.URIs {
+		re := regexp.MustCompile(uri)
 
-	if err != nil {
-		return false
+		if re.MatchString(host) {
+			return true
+		}
 	}
 
-	return match
+	return false
 }

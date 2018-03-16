@@ -9,23 +9,21 @@ import (
 
 var sourceString = `---
 debug: true
-browsers:
-	foobar:
-		path: foobar_path
-		profile: foobar_profile %s
-	barbaz:
-		path: barbaz_path
-		profile: barbaz_profile %s
-default:
-	browser: foobar
-	profile: default_profile
+default: &default
+	base: chromium-browser
+	profile: --profile-directory=%s
+	args: Default Profile
 rules:
-	- uri: first_url
-		browser: barbaz
-		profile: first_profile
-	- uri: second_uri
-		browser: foobar
-		profile: second_profile
+	- <<: *default
+		args: First Profile
+		args:
+		uris:
+			- hotmail.com
+			- gmail.com
+	- <<: *default
+		args: Second Profile
+		uris:
+			- (cnn|nyt).com
 `
 
 func TestNew(t *testing.T) {
@@ -37,10 +35,6 @@ func TestNew(t *testing.T) {
 		t.Errorf("Not supposed to get error: %+v", err)
 	}
 
-	if len(config.GetBrowsers()) != 2 {
-		t.Error("Incorrect number of browsers")
-	}
-
 	if !config.GetDebug() {
 		t.Error("Incorrect parsing of debug")
 	}
@@ -49,11 +43,11 @@ func TestNew(t *testing.T) {
 		t.Error("Incorrect number of rules")
 	}
 
-	if config.GetDefaultRule().GetProfile() != "default_profile" {
+	if config.GetDefaultRule().Base != "chromium-browser" {
 		t.Error("Error parsing default rule's profile")
 	}
 
-	if config.GetDefaultRule().GetBrowser() != "foobar" {
+	if config.GetDefaultRule().Args != "Default Profile" {
 		t.Error("Error parsing default rule's browser")
 	}
 }

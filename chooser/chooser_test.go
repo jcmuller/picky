@@ -3,7 +3,6 @@ package chooser_test
 import (
 	"testing"
 
-	"github.com/jcmuller/picky/browser"
 	"github.com/jcmuller/picky/chooser"
 	"github.com/jcmuller/picky/rule"
 )
@@ -11,27 +10,16 @@ import (
 type mockConfig struct{}
 
 var defaultRule = &rule.Rule{
-	Profile: "default_profile",
-	Browser: "default_browser",
+	Base:    "base",
+	Profile: "--profile=%s",
+	Args:    "Some Profile",
 }
 
 var otherRule = &rule.Rule{
-	URI:     "other_uri",
-	Profile: "profile",
-	Browser: "default_browser",
-}
-
-func (c *mockConfig) GetBrowsers() map[string]*browser.Browser {
-	a := make(map[string]*browser.Browser)
-
-	b := &browser.Browser{
-		Path:    "path",
-		Profile: "foobar %s",
-	}
-
-	a["default_browser"] = b
-
-	return a
+	Base:    "otherBase",
+	Profile: "-P=%s",
+	Args:    "Another Profile",
+	URIs:    []string{"hotmail.com", "yahoo.com"},
 }
 
 func (c *mockConfig) GetRules() []*rule.Rule {
@@ -57,12 +45,13 @@ func TestGetDefaultRule(t *testing.T) {
 }
 
 func TestGetRule(t *testing.T) {
-	c := chooser.New(&mockConfig{}, "other_uri")
+	c := chooser.New(&mockConfig{}, "hotmail.com")
 
 	rule := c.GetRule()
 
 	if rule != otherRule {
 		t.Errorf("Rules don't match:\n  expected: %+v\n    actual: %+v", otherRule, rule)
+
 	}
 }
 
@@ -72,6 +61,6 @@ func TestCall(t *testing.T) {
 	c.Call()
 
 	if c == nil {
-		t.Errorf("You fucked up")
+		t.Errorf("Something went wrong")
 	}
 }

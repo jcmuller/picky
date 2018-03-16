@@ -20,22 +20,31 @@ var matchTests = []struct {
 
 func TestMatch(t *testing.T) {
 	r := &rule.Rule{
-		Browser: "browser",
-		Profile: "profile",
-		URI:     "^https?://uri/[fz]oo/bar",
+		Base:    "browser",
+		Profile: "--profile %s",
+		Args:    "foobar",
+		URIs:    []string{"^https?://uri/[fz]oo/bar"},
 	}
 
 	for _, tt := range matchTests {
 		if r.Match(tt.uri) != tt.expected {
-			t.Errorf("URI %s should have matched %s", tt.uri, r.URI)
+			t.Errorf("URI %s should have matched %s", tt.uri, r.URIs)
 		}
 	}
+}
 
-	if r.GetBrowser() != "browser" {
-		t.Error("incorrect browser")
+func TestCommand(t *testing.T) {
+	r := &rule.Rule{
+		Base:    "browser",
+		Profile: "--profile %s",
+		Args:    "some profile",
 	}
 
-	if r.GetProfile() != "profile" {
-		t.Error("incorrect profile")
+	actual := r.GetCommand("foobar")
+
+	expected := [3]string{"browser", "--profile some profile", "foobar"}
+
+	if actual != expected {
+		t.Errorf("Error:\n  expected: %+v\n    actual: %+v", expected, actual)
 	}
 }

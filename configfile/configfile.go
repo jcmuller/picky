@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
-	"os/exec"
 )
 
 var configFileTemplate = "%s/.config/picky/config"
@@ -17,15 +16,6 @@ func FilePath(home string) (file string, err error) {
 }
 
 type fn func()
-
-// OnFileError handles error
-func OnFileError() {
-	errorString := "http://juancmuller.com/simplemessage/pickyerror.html?home=%s"
-	err := exec.Command("chromium-browser", fmt.Sprintf(errorString, os.Getenv("HOME"))).Run()
-	if err != nil {
-		panic(err)
-	}
-}
 
 // FileContents reads the config file
 func FileContents(path string, onFileError fn) (configFile []byte, err error) {
