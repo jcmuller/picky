@@ -17,24 +17,21 @@ This program lets you open URIs using different browsers (or profiles) following
 Picky is driven by a configuration file located at `$HOME/.config/picky/config`.
 
 ```yaml
----
-default:
-  profile: Default
-  browser: chromium
-browsers:
-  chromium:
-    path: chromium-browser
-    profile: --profile-directory=%s
-  firefox:
-    path: firefox
-    profile: -P %
+debug: true
+default: &default
+  base: chromium-browser
+  profile: --profile-directory=%s
+  args: Default Profile
 rules:
-  - uri: https?://google.com/foo
-    profile: Profile 1
-    browser: firefox
-  - uri: http://yahoo.com/bar
-    profile: Profile 2
-    browser: chromium
+  - <<: *default
+    args: First Profile
+    uris:
+    - hotmail.com
+    - gmail.com
+  - <<: *default
+    args: Second Profile
+    uris:
+    - (cnn|nyt).com
 ```
 
 ## Installation
