@@ -2,6 +2,12 @@
 
 
 [[projects]]
+  branch = "master"
+  name = "github.com/skratchdot/open-golang"
+  packages = ["open"]
+  revision = "75fb7ed4208cf72d323d7d02fd1a5964a7a9073c"
+
+[[projects]]
   name = "gopkg.in/yaml.v2"
   packages = ["."]
   revision = "7f97868eec74b32b0982dd158a51a446d1da7eb5"
@@ -10,6 +16,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "bbb168ed7f43b40cf4f75a1bccce6a8f8f9755d21b499eafd1bbe8f92fe1420b"
+  inputs-digest = "d71e604ab4dd8d275344f5b920dd360c977e088cb7ae93f97a16fbade9684137"
   solver-name = "gps-cdcl"
   solver-version = 1

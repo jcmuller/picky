@@ -4,17 +4,18 @@ package main
 import (
 	"fmt"
 	"os"
-	"os/exec"
 	"strings"
 
 	"github.com/jcmuller/picky/chooser"
 	"github.com/jcmuller/picky/config"
 	"github.com/jcmuller/picky/configfile"
+	"github.com/skratchdot/open-golang/open"
 )
 
 func onFileError() {
 	errorString := "http://juancmuller.com/simplemessage/pickyerror.html?home=%s"
-	err := exec.Command("chromium-browser", fmt.Sprintf(errorString, os.Getenv("HOME"))).Run()
+	err := open.Run(fmt.Sprintf(errorString, os.Getenv("HOME")))
+
 	if err != nil {
 		panic(err)
 	}
