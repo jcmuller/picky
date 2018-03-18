@@ -2,18 +2,6 @@
 
 
 [[projects]]
-  branch = "master"
-  name = "github.com/skratchdot/open-golang"
-  packages = ["open"]
-  revision = "75fb7ed4208cf72d323d7d02fd1a5964a7a9073c"
-
-[[projects]]
-  name = "github.com/davecgh/go-spew"
-  packages = ["spew"]
-  revision = "346938d642f2ec3594ed81d874461961cd0faa76"
-  version = "v1.1.0"
-
-[[projects]]
   name = "github.com/fsnotify/fsnotify"
   packages = ["."]
   revision = "c2828203cd70a50dcccfb2761f8b1f8ceef9a8e9"
@@ -52,6 +40,12 @@
   packages = ["."]
   revision = "acdc4509485b587f5e675510c4f2c63e90ff68a8"
   version = "v1.1.0"
+
+[[projects]]
+  branch = "master"
+  name = "github.com/skratchdot/open-golang"
+  packages = ["open"]
+  revision = "75fb7ed4208cf72d323d7d02fd1a5964a7a9073c"
 
 [[projects]]
   name = "github.com/spf13/afero"
@@ -114,7 +108,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "d3c2c90845ee7c2611f74c1027d43b4bc5489a7bc7e4d06ee99d7a6a4418c4b8"
-  inputs-digest = "40ca2f6faf0445244a3b05d6da2a1410a1bc6faeedce196b890ff75d77c6895e"
+  inputs-digest = "a7c0ad4d3711e1c0b34649cf1f315089e1349aad97a954d8b932a55e18d9cd68"
   solver-name = "gps-cdcl"
   solver-version = 1
