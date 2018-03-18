@@ -17,8 +17,8 @@ var (
 	usageString = `
 Configuration file missing.
 
-You need to set create a configuration file in /etc/picky or %s named
-config.yaml with contents similar to:
+You need to set create a configuration file in /etc/picky or %s/.config/picky
+named config.yaml with contents similar to:
 
 ---
 default:
