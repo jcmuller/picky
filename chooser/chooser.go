@@ -48,22 +48,13 @@ func (c *Chooser) GetRule() *rule.Rule {
 	return config.GetDefaultRule()
 }
 
-func log(command string) {
-	f, err := os.OpenFile("/tmp/input", os.O_CREATE|os.O_APPEND|os.O_WRONLY, 0644)
-	handle(err)
-	defer f.Close()
-
-	_, err = f.WriteString(fmt.Sprintf("%q\n", command))
-	handle(err)
-}
-
 // Call runs this thing
 func (c *Chooser) Call() {
 	rule := c.GetRule()
 	command := rule.GetCommand(c.arg)
 
 	if c.config.GetDebug() {
-		log(fmt.Sprintf("%v", command))
+		fmt.Fprintf(os.Stderr, "%s\n", command)
 		return
 	}
 
