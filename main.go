@@ -59,12 +59,17 @@ func printHelp() {
 func setupConfigFileAndFlags() (args []string, err error) {
 	pflag.BoolP("debug", "d", false, "Set to print out what action we would take")
 	pflag.BoolP("help", "h", false, "Show help menu")
+	config := pflag.StringP("config", "c", "", "Set configuration file")
 	pflag.Parse()
 	args = pflag.Args()
 
-	viper.SetConfigName("config")
-	viper.AddConfigPath("$HOME/.config/picky")
-	viper.AddConfigPath("/etc/picky")
+	if *config != "" {
+		viper.SetConfigFile(*config)
+	} else {
+		viper.SetConfigName("config")
+		viper.AddConfigPath("$HOME/.config/picky")
+		viper.AddConfigPath("/etc/picky")
+	}
 
 	viper.SetEnvPrefix("PICKY")
 	viper.AutomaticEnv()
@@ -86,7 +91,6 @@ func main() {
 	}
 
 	if err != nil {
-		err = err.(viper.ConfigFileNotFoundError)
 		onFileError()
 		os.Exit(1)
 	}
