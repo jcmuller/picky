@@ -8,45 +8,104 @@ import (
 
 	"github.com/jcmuller/picky/chooser"
 	"github.com/jcmuller/picky/config"
-	"github.com/jcmuller/picky/configfile"
 	"github.com/skratchdot/open-golang/open"
+	"github.com/spf13/pflag"
+	"github.com/spf13/viper"
+)
+
+var (
+	usageString = `
+Configuration file missing.
+
+You need to set create a configuration file in /etc/picky or %s named
+config.yaml with contents similar to:
+
+---
+default:
+	base: chromium-browser
+	profile: --profile-directory=%s
+	args: Default Profile
+rules:
+	- base: chromium-browser
+		profile: --profile-directory=%s
+		args: First Profile
+		uris:
+			- hotmail.com
+			- gmail.com
+	- base: chromium-browser
+		profile: --profile-directory=%s
+		args: Second Profile
+		uris:
+			- (cnn|nyt).com
+
+Picky also supports JSON and toml configuration files.
+`
 )
 
 func onFileError() {
 	errorString := "http://juancmuller.com/simplemessage/pickyerror.html?home=%s"
 	err := open.Run(fmt.Sprintf(errorString, os.Getenv("HOME")))
-
+	fmt.Fprintf(os.Stderr, usageString, os.Getenv("HOME"))
 	if err != nil {
 		panic(err)
 	}
 }
 
-func main() {
-	if len(os.Args) < 2 {
-		os.Exit(0)
-	}
+func printHelp() {
+	fmt.Printf("Usage: %s [options] URI\n", os.Args[0])
+	pflag.PrintDefaults()
+}
 
-	arg := strings.Join(os.Args[1:], " ")
+func setupConfigFileAndFlags() (args []string, err error) {
+	pflag.BoolP("debug", "d", false, "Set to print out what action we would take")
+	pflag.BoolP("help", "h", false, "Show help menu")
+	pflag.Parse()
+	args = pflag.Args()
 
-	configFilePath, err := configfile.FilePath(os.Getenv("HOME"))
+	viper.SetConfigName("config")
+	viper.AddConfigPath("$HOME/.config/picky")
+	viper.AddConfigPath("/etc/picky")
+
+	viper.SetEnvPrefix("PICKY")
+	viper.AutomaticEnv()
+
+	err = viper.BindPFlags(pflag.CommandLine)
 	handle(err)
 
-	configYaml, err := configfile.FileContents(configFilePath, onFileError)
+	err = viper.ReadInConfig()
 
-	if err != nil {
-		fmt.Println(fmt.Errorf("%s", err))
+	return
+}
+
+func main() {
+	args, err := setupConfigFileAndFlags()
+
+	if len(args) == 0 || viper.GetBool("help") {
+		printHelp()
 		os.Exit(1)
 	}
 
-	config, err := config.New(configYaml)
-	handle(err)
+	if err != nil {
+		err = err.(viper.ConfigFileNotFoundError)
+		onFileError()
+		os.Exit(1)
+	}
 
-	c := chooser.New(config, arg)
-	c.Call()
+	var config *config.Config
+	err = viper.Unmarshal(&config)
+	handle(err, "Fatal error parsing config: %s\n")
+
+	arg := strings.Join(args, " ")
+
+	chooser.New(config, arg).Call()
 }
 
-func handle(err error) {
+func handle(err error, args ...string) {
 	if err != nil {
+		if len(args) > 0 {
+			panic(fmt.Errorf(args[0], err))
+		}
+
 		panic(err)
 	}
 }

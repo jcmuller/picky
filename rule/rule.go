@@ -8,10 +8,10 @@ import (
 
 // Rule defines what to do for a URL
 type Rule struct {
-	Base    string   `yaml:"base"`
-	Profile string   `yaml:"profile"`
-	Args    string   `yaml:"args"`
-	URIs    []string `yaml:"uris"`
+	Base    string
+	Profile string
+	Args    string
+	URIs    []string
 }
 
 // GetCommand returns the browser key for the rule
