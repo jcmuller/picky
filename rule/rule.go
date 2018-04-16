@@ -8,6 +8,7 @@ import (
 
 // Rule defines what to do for a URL
 type Rule struct {
+	Label   string
 	Base    string
 	Profile string
 	Args    string
