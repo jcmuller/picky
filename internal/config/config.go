@@ -2,7 +2,7 @@
 package config
 
 import (
-	"github.com/jcmuller/picky/rule"
+	"github.com/jcmuller/picky/internal/rule"
 )
 
 // Config is a struct that holds configuration

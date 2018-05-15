@@ -3,8 +3,8 @@ package config_test
 import (
 	"testing"
 
-	"github.com/jcmuller/picky/config"
-	"github.com/jcmuller/picky/rule"
+	"github.com/jcmuller/picky/internal/config"
+	"github.com/jcmuller/picky/internal/rule"
 )
 
 func TestGetDebug(t *testing.T) {

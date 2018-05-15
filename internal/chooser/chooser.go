@@ -6,7 +6,7 @@ import (
 	"os"
 	"os/exec"
 
-	"github.com/jcmuller/picky/rule"
+	"github.com/jcmuller/picky/internal/rule"
 )
 
 type cfg interface {

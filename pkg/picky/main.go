@@ -6,8 +6,8 @@ import (
 	"os"
 	"strings"
 
-	"github.com/jcmuller/picky/chooser"
-	"github.com/jcmuller/picky/config"
+	"github.com/jcmuller/picky/internal/chooser"
+	"github.com/jcmuller/picky/internal/config"
 	"github.com/skratchdot/open-golang/open"
 	"github.com/spf13/pflag"
 	"github.com/spf13/viper"

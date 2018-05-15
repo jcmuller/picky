@@ -3,8 +3,8 @@ package chooser_test
 import (
 	"testing"
 
-	"github.com/jcmuller/picky/chooser"
-	"github.com/jcmuller/picky/rule"
+	"github.com/jcmuller/picky/internal/chooser"
+	"github.com/jcmuller/picky/internal/rule"
 )
 
 type mockConfig struct{}
