@@ -10,15 +10,13 @@ import (
 type mockConfig struct{}
 
 var defaultRule = &rule.Rule{
-	Base:    "base",
-	Profile: "--profile=%s",
-	Args:    "Some Profile",
+	Command: "command",
+	Args:    []string{"--profile=Some Profile"},
 }
 
 var otherRule = &rule.Rule{
-	Base:    "otherBase",
-	Profile: "-P=%s",
-	Args:    "Another Profile",
+	Command: "otherCommand",
+	Args:    []string{"-P=Another Profile"},
 	URIs:    []string{"hotmail.com", "yahoo.com"},
 }
 

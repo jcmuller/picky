@@ -2,26 +2,23 @@
 package rule
 
 import (
-	"fmt"
 	"regexp"
 )
 
 // Rule defines what to do for a URL
 type Rule struct {
 	Label   string
-	Base    string
-	Profile string
-	Args    string
+	Command string
+	Args    []string
 	URIs    []string
 }
 
 // GetCommand returns the browser key for the rule
-func (r *Rule) GetCommand(uri string) [3]string {
-	return [3]string{
-		r.Base,
-		fmt.Sprintf(r.Profile, r.Args),
-		uri,
-	}
+func (r *Rule) GetCommand() (command string, args []string) {
+	command = r.Command
+	args = r.Args
+
+	return
 }
 
 // Match matches

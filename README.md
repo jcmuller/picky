@@ -19,9 +19,8 @@ Picky is driven by a configuration file located at `$HOME/.config/picky/config`.
 ```yaml
 debug: true
 default: &default
-  base: chromium-browser
-  profile: --profile-directory=%s
-  args: Default Profile
+  command: chromium-browser
+  args: ["--profile-directory=Default Profile"]
 rules:
   - <<: *default
     args: First Profile

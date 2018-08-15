@@ -22,19 +22,16 @@ named config.yaml with contents similar to:
 
 ---
 default:
-	base: chromium-browser
-	profile: --profile-directory=%s
-	args: Default Profile
+	command: chromium-browser
+	args: ["--profile-directory, "Default Profile"]
 rules:
-	- base: chromium-browser
-		profile: --profile-directory=%s
-		args: First Profile
+	- command: chromium-browser
+		args: ["--profile-directory", "First Profile"]
 		uris:
 			- hotmail.com
 			- gmail.com
-	- base: chromium-browser
-		profile: --profile-directory=%s
-		args: Second Profile
+	- command: chromium-browser
+		args: ["--profile-directory", "Second Profile"]
 		uris:
 			- (cnn|nyt).com
 

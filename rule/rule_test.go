@@ -1,6 +1,7 @@
 package rule_test
 
 import (
+	"reflect"
 	"testing"
 
 	"github.com/jcmuller/picky/rule"
@@ -20,9 +21,8 @@ var matchTests = []struct {
 
 func TestMatch(t *testing.T) {
 	r := &rule.Rule{
-		Base:    "browser",
-		Profile: "--profile %s",
-		Args:    "foobar",
+		Command: "browser",
+		Args:    []string{"--profile", "foobar"},
 		URIs:    []string{"^https?://uri/[fz]oo/bar"},
 	}
 
@@ -35,16 +35,19 @@ func TestMatch(t *testing.T) {
 
 func TestCommand(t *testing.T) {
 	r := &rule.Rule{
-		Base:    "browser",
-		Profile: "--profile %s",
-		Args:    "some profile",
+		Command: "browser",
+		Args:    []string{"--profile", "some profile"},
 	}
 
-	actual := r.GetCommand("foobar")
+	command, args := r.GetCommand()
 
-	expected := [3]string{"browser", "--profile some profile", "foobar"}
+	expected := []string{"--profile", "some profile"}
 
-	if actual != expected {
-		t.Errorf("Error:\n  expected: %+v\n    actual: %+v", expected, actual)
+	if command != "browser" {
+		t.Errorf("Error:\n  expected: %+v\n    actual: %+v", "browser", command)
+	}
+
+	if !reflect.DeepEqual(args, expected) {
+		t.Errorf("Error:\n  expected: %+v\n    actual: %+v", expected, args)
 	}
 }

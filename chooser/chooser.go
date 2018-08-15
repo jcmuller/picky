@@ -50,14 +50,15 @@ func (c *Chooser) GetRule() *rule.Rule {
 
 // Call runs this thing
 func (c *Chooser) Call() {
-	rule := c.GetRule()
-	command := rule.GetCommand(c.arg)
+	r := c.GetRule()
+	cmd, args := r.GetCommand()
+	args = append(args, c.arg)
+
+	command := exec.Command(cmd, args...)
 
 	if c.config.GetDebug() {
-		fmt.Fprintf(os.Stderr, "%s\n", command)
-		return
+		fmt.Fprintf(os.Stderr, "%v\n", command)
 	}
 
-	err := exec.Command(command[0], command[1:]...).Run()
-	handle(err)
+	command.Start()
 }
