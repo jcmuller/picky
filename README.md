@@ -36,9 +36,16 @@ rules:
 ## Installation
 ```bash
 $ go get -u github.com/jcmuller/picky
+
+$ mkdir -p ~/.local/share/applications; cp picky.desktop ~/.local/share/applications
+$ sudo update-alternatives --install /usr/bin/picky x-www-browser /usr/local/bin/picky 100
+$ sudo update-alternatives --install /usr/bin/picky-gnome gnome-www-browser  /usr/local/bin/picky 100
+$ xdg-settings set default-web-browser picky.desktop
 ```
 
 ## Usage
 ```bash
 $ picky SOME_URI
 ```
+
+
